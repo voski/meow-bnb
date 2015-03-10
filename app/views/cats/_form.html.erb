@@ -1,6 +1,11 @@
-<form action="<%= cats_url %>" method="post">
-  <!-- <input type="hidden" name="_method" method="create"> -->
-
+<% if @cat.persisted? %>
+  <% action = 'Update' %>
+  <form action="<%= cat_url(@cat) %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+<% else %>
+  <% action = 'Create' %>
+  <form action="<%= cats_url %>" method="post">
+<% end %>
 <ul id="cat_form">
   <li>
     <label for="cat_name">Cat's name</label>
@@ -36,7 +41,7 @@
   </li>
 
   <li>
-    <input type="submit" value="Create Cat">
+    <input type="submit" value="<%= action %> Cat">
   </li>
 <ul>
 </form>

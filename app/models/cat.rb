@@ -15,7 +15,7 @@
 class Cat < ActiveRecord::Base
   CAT_COLORS = %w(white black orange purple space_grey gold silver)
   CAT_GENDERS = %w(M F)
-  validates :birth_date, :color, :name, presence: true
+  validates :birth_date, :name, presence: true
   validates :sex, inclusion: { in: CAT_GENDERS ,
     message: "%{value} is not a valid gender" }
   validates :color, inclusion: { in: CAT_COLORS,
