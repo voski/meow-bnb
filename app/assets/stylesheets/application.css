@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+#cat_form li {
+  margin: 15px;
+  list-style-type: none;
+}

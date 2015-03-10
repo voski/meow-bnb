@@ -1,0 +1,42 @@
+<form action="<%= cats_url %>" method="post">
+  <!-- <input type="hidden" name="_method" method="create"> -->
+
+<ul id="cat_form">
+  <li>
+    <label for="cat_name">Cat's name</label>
+      <input name="cat[name]" id="cat_name" value="<%= @cat.name %>"></input>
+  </li>
+
+  <li>
+    <label for="cat_birth_date">Cat's birthday</label>
+    <input type="date" name="cat[birth_date]" id="cat_birth_date" value="<%= @cat.birthday %>">
+  </li>
+
+  <li>
+    <label for ="cat_color">Cat Color</label>
+    <select name="cat[color]" id="cat_color" value="<%= @cat.color %>">
+      <option selected></option>
+      <% Cat.colors.each do |color| %>
+        <option value="<%= color %>"  <%= "selected" if color == @cat.color %> ><%= color %></option>
+      <% end %>
+    </select>
+  </li>
+
+  <li>
+    <% Cat.genders.each do |gender| %>
+      <input type="radio" name="cat[sex]" id="cat_sex_<%= gender %>" value="<%= gender %>" <%= 'checked="checked"' if @cat.sex == gender%>>
+      <label for="cat_sex_<%= gender %>"><%= gender %></label>
+    <% end %>
+  </li>
+
+  <li>
+    <label for="cat_description">Cat's description</label>
+      <textarea name="cat[description]" id="cat_description"><%= @cat.description %></textarea>
+    </label><br />
+  </li>
+
+  <li>
+    <input type="submit" value="Create Cat">
+  </li>
+<ul>
+</form>
