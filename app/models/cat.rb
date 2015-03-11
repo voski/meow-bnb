@@ -10,10 +10,12 @@
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  user_id     :integer          not null
 #
 
 class Cat < ActiveRecord::Base
   has_many :rental_requests, class_name: 'CatRentalRequest', dependent: :destroy
+  belongs_to :user
 
   CAT_COLORS = %w(white black orange purple space_grey gold silver)
   CAT_GENDERS = %w(M F)

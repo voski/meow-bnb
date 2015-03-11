@@ -1,6 +1,8 @@
 <h1>Here are all our Cats</h1>
 <p><%= link_to "Donate your cat for renting", new_cat_url %></p>
 
+<p><%= link_to "Request a cat", new_cat_rental_request_url %></p>
+
 <ol>
   <% @cats.each do |cat| %>
     <li>

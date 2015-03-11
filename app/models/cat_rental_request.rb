@@ -17,10 +17,17 @@ class CatRentalRequest < ActiveRecord::Base
   REQUEST_STATUSES = %w(PENDING APPROVED DENIED)
 
   validates :cat_id, :start_date, :end_date, presence: true
+  validate :request_does_not_overlap
   validates :status, inclusion: {
     in: REQUEST_STATUSES,
     message: '"%{value}" NOT A VALID STATUS'
   }
+
+  def request_does_not_overlap
+    unless overlapping_approved_requests.empty?
+      errors.add(:cat_id,  "is already booked")
+    end
+  end
 
   def overlapping_requests
     potential_conflicts = CatRentalRequest.all.where.not(id: self.id).where(cat_id: self.cat_id)

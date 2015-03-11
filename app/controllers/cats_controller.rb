@@ -1,4 +1,5 @@
 class CatsController < ApplicationController
+  before_action :verify_owner, only: [:edit, :update, :destroy]
 
   def index
     @cats = Cat.all
@@ -19,6 +20,7 @@ class CatsController < ApplicationController
   end
 
   def edit
+
     @cat = Cat.find(params[:id])
 
     render :edit
@@ -33,6 +35,7 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
+    @cat.user_id = current_user.id
     if @cat.save
       redirect_to cat_url(@cat)
     else
@@ -56,7 +59,16 @@ class CatsController < ApplicationController
 
 
   private
+
+    def verify_owner
+      @cat = Cat.find(params[:id])
+      unless current_user.id == @cat.user.id
+        flash[:notice] = "This is not your cat bro!"
+        redirect_to @cat
+      end
+    end
+
     def cat_params
-      params.require(:cat).permit(:birth_date, :name, :color, :sex, :description)
+      params.require(:cat).permit(:birth_date, :name, :color, :sex, :description, :user_id)
     end
 end
