@@ -13,6 +13,8 @@
 #
 
 class Cat < ActiveRecord::Base
+  has_many :rental_requests, class_name: 'CatRentalRequest', dependent: :destroy
+
   CAT_COLORS = %w(white black orange purple space_grey gold silver)
   CAT_GENDERS = %w(M F)
   validates :birth_date, :name, presence: true

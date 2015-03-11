@@ -14,7 +14,17 @@
  *= require_self
  */
 
-#cat_form li {
-  margin: 15px;
+li {
+  margin: 10px;
+}
+#cat_form {
+  list-style-type: none;
+}
+
+#cat_show_links {
+  list-style-type: none;
+}
+
+#cat_info{
   list-style-type: none;
 }

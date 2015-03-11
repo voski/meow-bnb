@@ -1,7 +1,9 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+REQUEST_STATUSES = %w(PENDING APPROVED DENIED)
+
+50.times do
+  CatRentalRequest.create!(cat_id: rand(1..5), start_date: rand(50..100).days.ago, end_date: rand(1..49).days.ago, status: REQUEST_STATUSES[rand(3)])
+end
+
+50.times do
+  CatRentalRequest.create!(cat_id: rand(1..5), start_date: rand(1..49).days.ago, end_date: rand(1..25).days.from_now, status: REQUEST_STATUSES[rand(3)])  
+end

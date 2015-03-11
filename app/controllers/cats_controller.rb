@@ -41,6 +41,19 @@ class CatsController < ApplicationController
     end
   end
 
+  def destroy
+    @cat = Cat.find(params[:id])
+
+    if @cat.destroy
+      flash.notice = "#{@cat.name} has mysteriously disapeared from our location"
+      redirect_to root_url
+    else
+      flash[:errors] = @cat.errors.full_messages
+      redirect_to @cat
+    end
+
+  end
+
 
   private
     def cat_params
