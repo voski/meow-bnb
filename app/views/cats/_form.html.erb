@@ -6,6 +6,12 @@
   <% action = 'Create' %>
   <form action="<%= cats_url %>" method="post">
 <% end %>
+
+<input
+  type="hidden"
+  name="authenticity_token"
+  value="<%= form_authenticity_token %>">
+
 <ul id="cat_form">
   <li>
     <label for="cat_name">Cat's name</label>
