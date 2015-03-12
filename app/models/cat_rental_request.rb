@@ -9,14 +9,16 @@
 #  status     :string           default("PENDING"), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  user_id    :integer          default("0"), not null
 #
 
 class CatRentalRequest < ActiveRecord::Base
   belongs_to :cat
+  belongs_to :user
 
   REQUEST_STATUSES = %w(PENDING APPROVED DENIED)
 
-  validates :cat_id, :start_date, :end_date, presence: true
+  validates :cat_id, :start_date, :end_date, :user_id , presence: true
   validate :request_does_not_overlap
   validates :status, inclusion: {
     in: REQUEST_STATUSES,

@@ -26,8 +26,4 @@ class SessionsController < ApplicationController
   def user_credentials
     params.require(:user).permit(:user_name, :password)
   end
-  #
-  #   def session_params
-  #     sessions.
-  #   end
 end

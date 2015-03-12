@@ -9,6 +9,7 @@
 </head>
 <body>
 <%= current_user.nil? ? (link_to "sign in", new_session_url) : (link_to current_user.user_name, root_url) %>
+<%= current_user.nil? ? (link_to "sign up!", new_user_url) : nil %>
 <%= current_user.nil? ? nil : (button_to "log out", session_url, method: :delete) %>
 <br />
 <%= render partial: 'layouts/errors' %>

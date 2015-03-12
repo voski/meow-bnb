@@ -60,7 +60,7 @@ class CatsController < ApplicationController
 
   private
 
-    def verify_owner
+    def verify_owner # refactor this doing two things instead of one
       @cat = Cat.find(params[:id])
       unless current_user.id == @cat.user.id
         flash[:notice] = "This is not your cat bro!"
