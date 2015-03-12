@@ -24,7 +24,8 @@ class CatRentalRequest < ActiveRecord::Base
   }
 
   def request_does_not_overlap
-    unless overlapping_approved_requests.empty?
+
+    unless status == 'DENIED' || overlapping_approved_requests.empty?
       errors.add(:cat_id,  "is already booked")
     end
   end
@@ -45,5 +46,28 @@ class CatRentalRequest < ActiveRecord::Base
 
   def overlaps?(other_request)
     (start_date - other_request.end_date) * (other_request.start_date - end_date) >= 0
+  end
+
+  def pending?
+    self.status == 'PENDING'
+  end
+
+  def approve!
+    if overlapping_approved_requests.empty?
+      self.class.transaction do
+        self.status = 'APPROVED'
+        self.save!
+        overlapping_requests.each do |request|
+          request.deny!
+        end
+      end
+    else
+      flash.now[:error] = "Status cannot be approved due to conflictin approvals"
+    end
+  end
+
+  def deny!
+    self.status = 'DENIED'
+    self.save!
   end
 end
